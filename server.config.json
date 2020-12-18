@@ -1,0 +1,11 @@
+{
+  "service": "",
+  "database" : {
+    "type" : "mysql",
+    "name" : "taskdb",
+    "username" : "root",
+    "password" : "password",
+    "host" : "localhost",
+    "port" : "3307"
+  }
+}
