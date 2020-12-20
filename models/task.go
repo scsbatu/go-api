@@ -1,6 +1,7 @@
 package models
 
 import (
+	"fmt"
 	"github.com/google/uuid"
 	"github.com/scsbatu/go-api/core/helpers"
 	"time"
@@ -66,6 +67,7 @@ func CreateTask(
 		StartDateTime:    &t,
 		CategoryID:       &catID,
 	}
+	fmt.Println("data before save ", j)
 	if insert := db.Create(j); insert.Error != nil {
 		return nil, insert.Error
 	}
