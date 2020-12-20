@@ -202,27 +202,21 @@ func fetchTask(
 	} else if err != nil {
 		return http.StatusNotFound, middlewares.ErrStatusNotFound("Record not found")
 	}
-	var id, creatorID, providerID, categoryID string
+	var id, creatorID, categoryID string
 	id1 := hex.EncodeToString(*j.ID)
 	id = uuid.Must(uuid.Parse(id1)).String()
 	id1 = hex.EncodeToString(*j.CreatorID)
 	creatorID = uuid.Must(uuid.Parse(id1)).String()
-	id1 = hex.EncodeToString(*j.ProviderID)
-	providerID = uuid.Must(uuid.Parse(id1)).String()
 	id1 = hex.EncodeToString(*j.CategoryID)
 	categoryID = uuid.Must(uuid.Parse(id1)).String()
 	d := contracts.GetTaskData{
-		ID:            &id,
-		Title:         j.Title,
-		TaskKey:       j.TaskKey,
-		Details:       j.Details,
-		Price:         j.Price,
-		IsOnline:      j.IsOnline,
-		Status:        j.Status,
-		CreatorID:     &creatorID,
-		ProviderID:    &providerID,
-		CategoryID:    &categoryID,
-		PaymentStatus: j.PaymentStatus,
+		ID:         &id,
+		Title:      j.Title,
+		TaskKey:    j.TaskKey,
+		Details:    j.Details,
+		Status:     j.Status,
+		CreatorID:  &creatorID,
+		CategoryID: &categoryID,
 	}
 	resp.Data = &d
 	return http.StatusOK, nil
@@ -249,18 +243,6 @@ func updateTask(
 	}
 	if req.Details != nil {
 		j.Details = req.Details
-	}
-	if req.Price != nil {
-		j.Price = req.Price
-	}
-	if req.IsOnline != nil {
-		j.IsOnline = req.IsOnline
-	}
-	if req.Status != nil {
-		j.Status = req.Status
-	}
-	if req.PaymentStatus != nil {
-		j.PaymentStatus = req.PaymentStatus
 	}
 	if err = models.UpdateTask(j); err != nil {
 		return http.StatusInternalServerError, middlewares.ErrStatusInternalServerError("Database error", err)
