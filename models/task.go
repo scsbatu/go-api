@@ -64,7 +64,7 @@ func CreateTask(
 	return
 }
 
-func GetJobByID(id string) (*Task, error) {
+func GetTaskByID(id string) (*Task, error) {
 	idInBinary, err := helpers.StringToUUIDByte(id)
 	if err != nil {
 		return nil, err
@@ -77,7 +77,7 @@ func GetJobByID(id string) (*Task, error) {
 	return &j, nil
 }
 
-func UpdateJob(j *Task) (err error) {
+func UpdateTask(j *Task) (err error) {
 	if update := db.Save(j); update.Error != nil {
 		return update.Error
 	}
