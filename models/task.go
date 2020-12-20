@@ -33,8 +33,8 @@ func (*Task) TableName() string {
 }
 
 func CreateTask(
-	title, jobKey, details, creatorID, providerID, categoryID *string,
-	status *int,
+	title, taskKey, details, creatorID, categoryID *string,
+
 ) (j *Task, err error) {
 	id, _ := uuid.New().MarshalBinary()
 	t := time.Now().Local()
@@ -49,9 +49,8 @@ func CreateTask(
 	j = &Task{
 		ID:               &id,
 		Title:            title,
-		TaskKey:          jobKey,
+		TaskKey:          taskKey,
 		Details:          details,
-		Status:           status,
 		CreatorID:        &cID,
 		CategoryID:       &catID,
 		ExpectedDateTime: &t,
