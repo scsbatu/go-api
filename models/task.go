@@ -32,7 +32,7 @@ func (*Task) TableName() string {
 	return "task"
 }
 
-func CreateJob(
+func CreateTask(
 	title, jobKey, details, creatorID, providerID, categoryID *string,
 	status *int,
 ) (j *Task, err error) {
