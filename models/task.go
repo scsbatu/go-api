@@ -34,7 +34,7 @@ func (*Task) TableName() string {
 
 func CreateTask(
 	title, taskKey, details, creatorID, categoryID *string,
-
+	status *int,
 ) (j *Task, err error) {
 	id, _ := uuid.New().MarshalBinary()
 	t := time.Now().Local()
@@ -46,17 +46,25 @@ func CreateTask(
 		}
 	}
 
+	if categoryID != nil {
+		catID, err = helpers.StringToUUIDByte(*categoryID)
+		if err != nil {
+			return nil, err
+		}
+	}
+
 	j = &Task{
 		ID:               &id,
 		Title:            title,
 		TaskKey:          taskKey,
 		Details:          details,
-		CreatorID:        &cID,
-		CategoryID:       &catID,
 		ExpectedDateTime: &t,
+		Status:           status,
+		CreatorID:        &cID,
 		CreatedDate:      &t,
 		UpdatedDate:      &t,
 		StartDateTime:    &t,
+		CategoryID:       &catID,
 	}
 	if insert := db.Create(j); insert.Error != nil {
 		return nil, insert.Error

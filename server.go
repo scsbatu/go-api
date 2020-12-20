@@ -7,10 +7,10 @@ import (
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 	"github.com/labstack/gommon/log"
+	"github.com/scsbatu/go-api/config"
 	"github.com/scsbatu/go-api/core/handlers"
 	"github.com/scsbatu/go-api/core/helpers"
 	"github.com/scsbatu/go-api/models"
-	"github.com/scsbatu/golangAPI/configmanager"
 	"github.com/scsbatu/golangAPI/core/middlewares"
 	"net/http"
 	"os"
@@ -57,7 +57,7 @@ func main() {
 	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
 		Format: `${host} ${remote_ip} ${time_rfc3339_nano} ${id} ${method} ${uri} ${status} "${user_agent}" ${latency} ${bytes_in} ${bytes_out}` + "\n",
 	}))
-	if err := configmanager.Init("."); err != nil {
+	if err := config.Init("."); err != nil {
 		log.Fatal("Got error while initializing config file", err)
 	}
 
@@ -82,8 +82,8 @@ func main() {
 
 	e.Any("/api/user", handlers.UserHandler{}.Any)
 	e.Any("/api/user/:user_id", handlers.UserHandler{}.Any)
-	e.Any("/api/job", handlers.TaskHandler{}.Any)
-	e.Any("/api/job/:job_id", handlers.TaskHandler{}.Any)
+	e.Any("/api/task", handlers.TaskHandler{}.Any)
+	e.Any("/api/task/:task_id", handlers.TaskHandler{}.Any)
 
 	if err := e.Start(fmt.Sprintf("%s:%s", *host, *port)); err != nil {
 		fmt.Println("Failed to start server!", err)
