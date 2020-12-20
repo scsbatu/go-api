@@ -175,7 +175,7 @@ func createTask(
 		return http.StatusInternalServerError, middlewares.ErrStatusInternalServerError("Database error", err)
 	}
 
-	j, err := models.CreateTask(req.Title, req.TaskKey, req.Details, req.CreatorID, req.CategoryID)
+	j, err := models.CreateTask(req.Title, req.TaskKey, req.Details, req.CreatorID, req.CategoryID, req.Status)
 	if err != nil {
 		return http.StatusInternalServerError, middlewares.ErrStatusInternalServerError("Database error", err)
 	}
