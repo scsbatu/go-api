@@ -83,6 +83,7 @@ func Init(config string) error {
 		config = "."
 	}
 	configFilepath := strings.TrimRight(config, "/") + "/config.json"
+	fmt.Println("configFilepath ", configFilepath)
 	configFile = &configFilepath
 	setupReload()
 	return LoadConfiguration()
