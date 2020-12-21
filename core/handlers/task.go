@@ -123,7 +123,7 @@ func (TaskHandler) Update(c echo.Context) error {
 	c.Set("path", "Task")
 	c.Set("action", strings.ToLower(method))
 	req := new(contracts.UpdateTaskRequest)
-	TaskID := c.Param("Task_id")
+	TaskID := c.Param("task_id")
 	if TaskID != "" {
 		req.ID = &TaskID
 	}
