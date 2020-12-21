@@ -80,7 +80,7 @@ func (TaskHandler) Get(c echo.Context) error {
 	c.Set("path", "user")
 	c.Set("action", strings.ToLower(method))
 	req := new(contracts.GetTaskRequest)
-	TaskID := c.Param("Task_id")
+	TaskID := c.Param("task_id")
 	if TaskID != "" {
 		req.ID = &TaskID
 	}
